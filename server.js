@@ -5,6 +5,19 @@ const cookieParser = require("cookie-parser")
 const app = express();
 const passport = require("passport")
 
+
+app.use((req,res,next)=>{
+        
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+  
+
+})
+
+
+app.options('*', cors()); 
+
 if (process.env.NODE_ENV !== "production") {
   // Load environment variables from .env file in non prod environments
   require("dotenv").config()

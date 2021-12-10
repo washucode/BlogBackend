@@ -16,14 +16,7 @@ const Admin = require("../models/Admin")
 require('../strategies/JwtStrategy')
 
 router
-    .use((req,res,next)=>{
-        
-        res.header("Access-Control-Allow-Origin", "*");
-        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-        next();
-        
-
-    })
+    
     .use((req, res, next) => {
         if (req.headers && req.headers.authorization) {
           jwt.verify(req.headers.authorization.split(' ')[1],secret, (err, decode) => {
