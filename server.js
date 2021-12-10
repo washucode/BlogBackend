@@ -25,11 +25,11 @@ const adminRouter = require('./Routes/authRoutes'
 
 // require('./Routes/authRoutes')(app)
 
-var corsOptions = {
-  origin: process.env.WHITELISTED_DOMAINS
-};
+// var corsOptions = {
+//   origin: process.env.WHITELISTED_DOMAINS
+// };
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
