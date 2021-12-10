@@ -26,7 +26,7 @@ const adminRouter = require('./Routes/authRoutes'
 // require('./Routes/authRoutes')(app)
 
 var corsOptions = {
-  origin: "http://localhost:8081"
+  origin: "*"
 };
 
 app.use(cors(corsOptions));

@@ -30,7 +30,7 @@ exports.createNewUser = (req,res,next)=>{
               expiresIn: 86400
           })
           res.status(201).send({auth:true, token:token});
-          console.log(user)
+          
         });
   
 }
