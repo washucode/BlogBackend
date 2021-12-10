@@ -22,34 +22,26 @@ exports.createNewUser = (req,res,next)=>{
       }
     
    
-    Admin.register(
-        new Admin(opt),(err, user) => {
+   
+    new Admin(opt),(err, user) => {
          
-            if (err) {
-              res.status(500).send(err);
+        user.save((err,user)=>{
+            if(err){
+                res.statusCode = 500
+                res.send(err)
             }
             else{
+
                 var token = jwt.sign({id:user._id},secret,{
                     expiresIn: 86400
                 })
 
-                user.save((err,user)=>{
-                    if(err){
-                        res.statusCode = 500
-                        res.send(err)
-                    }
-                    else{
+                res.status(201).send({auth:true, token:token});
+                }
 
-                        res.status(201).send({auth:true, token:token});
-                     }
-    
-                    
-                })
-            }    
-        }
-    )
-    
-  
+            
+        })
+     }    
 }
 
 exports.loginUser =  (req,res)=>{
