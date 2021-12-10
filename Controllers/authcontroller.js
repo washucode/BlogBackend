@@ -20,18 +20,35 @@ exports.createNewUser = (req,res,next)=>{
         profilepic:req.body.profilepic,
         password:hashedPassword
       }
-    let newUser = new Admin(opt);
+    
    
-    newUser.save((err, user) => {
-          if (err) {
-            res.status(500).send(err);
-          }
-          var token = jwt.sign({id:user._id},secret,{
-              expiresIn: 86400
-          })
-          res.status(201).send({auth:true, token:token});
-          
-        });
+    Admin.register(
+        new Admin(opt),(err, user) => {
+         
+            if (err) {
+              res.status(500).send(err);
+            }
+            else{
+                var token = jwt.sign({id:user._id},secret,{
+                    expiresIn: 86400
+                })
+
+                user.save((err,user)=>{
+                    if(err){
+                        res.statusCode = 500
+                        res.send(err)
+                    }
+                    else{
+
+                        res.status(201).send({auth:true, token:token});
+                     }
+    
+                    
+                })
+            }    
+        }
+    )
+    
   
 }
 
