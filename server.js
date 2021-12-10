@@ -26,7 +26,7 @@ const adminRouter = require('./Routes/authRoutes'
 // require('./Routes/authRoutes')(app)
 
 var corsOptions = {
-  origin: "*"
+  origin: process.env.WHITELISTED_DOMAINS
 };
 
 app.use(cors(corsOptions));
