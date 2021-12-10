@@ -23,9 +23,9 @@ exports.createNewUser = (req,res,next)=>{
     
    
    
-    new Admin(opt),(err, user) => {
+    
          
-        user.save((err,user)=>{
+    new Admin(opt).save((err,user)=>{
             if(err){
                 res.statusCode = 500
                 res.send(err)
@@ -42,7 +42,7 @@ exports.createNewUser = (req,res,next)=>{
             
         })
      }    
-}
+
 
 exports.loginUser =  (req,res)=>{
     Admin.findOne({ username: req.body.username }, function (err, user) {
