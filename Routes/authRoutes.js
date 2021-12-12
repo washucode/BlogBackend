@@ -51,7 +51,7 @@ router
     //get published
     .get("/published", blogController.findAllPublished)
     // get drafts
-    .get("/drafts",authcontroller.loginRequired,blogController.findAllDrafts)
+    .get("/drafts",blogController.findAllDrafts)
     //get one post
     .get("/post/:id",blogController.findOnePost)
     //update post

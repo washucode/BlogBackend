@@ -109,9 +109,9 @@ exports.loginRequired = (req, res, next) => {
     //     next();
     // });
 
-    if (req.user) {
-    res.json({ message: 'Authorized User, Action Successful!'});
-        } else {
-    res.status(401).json({ message: 'Unauthorized user!' });
-        }
+    // if (req.user) {
+    // res.json({ message: 'Authorized User, Action Successful!'});
+    //     } else {
+    // res.status(401).json({ message: 'Unauthorized user!' });
+    //     }
 };
