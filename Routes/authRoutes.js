@@ -58,6 +58,15 @@ router
     .put("/post/:id",blogController.updatePost)
 
     .delete("/post/:id",blogController.deletePost)
+    .post("/postdata",(req,res)=>{
+      // res.send(req.body)
+      if(!req.body){
+        res.send({status:false, message:"no data sent"})
+      }
+      console.log(req.body); 
+    })
+    
+    
    
      
 

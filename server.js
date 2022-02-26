@@ -4,6 +4,52 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser")
 const app = express();
 const passport = require("passport")
+const formidable = require("formidable")
+
+//for images upload
+var multer = require('multer')
+const util = require("util");
+const fs = require("fs");
+const path = require("path")
+// const uniqueString = require("unique-string");
+const readDir = util.promisify(fs.readdir);
+const uuid = require('uuidv4')
+
+
+const DIR = 'public/images'
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+      cb(null, DIR);
+  },
+  filename: (req, file, cb) => {
+      const fileName = file.originalname.toLowerCase().split(' ').join('-');
+      cb(null, uuid() + '-' + fileName)
+  }
+});
+
+var upload = multer({
+  storage:storage,
+  fileFilter:(req,file,cb)=>{
+    if(file.mimetype=="image/png"|| file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+      cb(null, true);
+    } else {
+        cb(null, false);
+    
+        return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+    }
+  }
+})
+
+
+async function getImage(dir) {
+  try {
+    return await readDir(path.join(__dirname, "public", dir));
+  } catch (error) {
+    throw error;
+  }
+}
+
 
 
 app.use((req,res,next)=>{
@@ -17,6 +63,22 @@ app.use((req,res,next)=>{
 
 
 app.options('*', cors()); 
+
+
+
+
+//uploadimage
+app.post("/api/image",upload.single("prevImage"),(req,res,next)=>{ 
+  const url = req.protocol +'://'+req.get('host')
+  res.send(url)
+
+})
+
+
+
+
+
+app.use(express.static(path.join(__dirname, "public")));
 
 if (process.env.NODE_ENV !== "production") {
   // Load environment variables from .env file in non prod environments
@@ -33,16 +95,7 @@ const adminRouter = require('./Routes/authRoutes'
 
 
 
-// Token Verification 
 
-
-// require('./Routes/authRoutes')(app)
-
-// var corsOptions = {
-//   origin: process.env.WHITELISTED_DOMAINS
-// };
-
-// app.use(cors(corsOptions));
 
 // parse requests of content-type - application/json
 app.use(bodyParser.json());

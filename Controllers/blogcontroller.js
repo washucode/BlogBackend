@@ -10,6 +10,9 @@ if (process.env.NODE_ENV !== 'production') {
 const secret = process.env.SECRET_KEY
 
 
+
+
+
 //save posts
 exports.createNewPost = (req, res) => {
 
@@ -31,7 +34,7 @@ exports.createNewPost = (req, res) => {
             title: req.body.title,
             subtitle: req.body.subtitle,
             content: req.body.content,
-            prevImage:req.body.prevImage,
+            // prevImage:req.body.prevImage,
             posttags:req.body.posttags,
             author:thisauthor,
             state:"true"
@@ -73,7 +76,7 @@ exports.createNewDraft = (req, res) => {
           title: req.body.title,
           subtitle: req.body.subtitle,
           content: req.body.content,
-          prevImage:req.body.prevImage,
+          // prevImage:req.body.prevImage,
           posttags:req.body.posttags,
           author:thisauthor,
           state:"false"

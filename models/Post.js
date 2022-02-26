@@ -5,7 +5,6 @@ const Posts = new mongoose.Schema({
   title: String,
   subtitle: String,
   content: String,
-  prevImage: String,
   posttags:String,
   author:String,
   state:String,
